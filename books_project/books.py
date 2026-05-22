@@ -22,7 +22,10 @@ async def read_all_books():
 
 
 @app.get('/books/{book_title}')
-async def get_book_by_title(book_title: str):
+async def read_book(book_title: str):
+    """Get bok bt book title"""
     for book in BOOKS:
         if book.get('title').casefold() == book_title.casefold():
             return book
+
+
