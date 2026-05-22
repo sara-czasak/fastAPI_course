@@ -11,9 +11,18 @@ BOOKS = [
     {'title': 'Halt\'s Peril', 'author': 'John Flanagan', 'category': 'adventure'},
     {'title': 'Fourth Wing', 'author': 'Rebecca Yarros', 'category': 'fantasy'},
     {'title': 'Iron Flame', 'author': 'Rebecca Yarros', 'category': 'fantasy'},
+    {'title': 'Onyx Storm', 'author': 'Rebecca Yarros', 'category': 'fantasy'},
 ]
 
 
 @app.get('/books')
 async def read_all_books():
+    """Get all books"""
     return BOOKS
+
+
+@app.get('/books/{book_title}')
+async def get_book_by_title(book_title: str):
+    for book in BOOKS:
+        if book.get('title').casefold() == book_title.casefold():
+            return book
