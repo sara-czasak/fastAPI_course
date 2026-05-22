@@ -12,6 +12,7 @@ BOOKS = [
     {'title': 'Fourth Wing', 'author': 'Rebecca Yarros', 'category': 'fantasy'},
     {'title': 'Iron Flame', 'author': 'Rebecca Yarros', 'category': 'fantasy'},
     {'title': 'Onyx Storm', 'author': 'Rebecca Yarros', 'category': 'fantasy'},
+    {'title': 'Book one', 'author': 'author one', 'category': 'math'},
 ]
 
 
@@ -29,3 +30,21 @@ async def read_book(book_title: str):
             return book
 
 
+@app.get('/books/')
+async def read_by_category_query(category: str):
+    """Get books by category"""
+    books_to_return = []
+    for book in BOOKS:
+        if book.get('category').casefold() == category.casefold():
+            books_to_return.append(book)
+    return books_to_return
+
+
+@app.get('/books/{book_author}/')
+async def read_author_category_by_query(book_author: str, category: str):
+    """Get books by author and category"""
+    books_to_return = []
+    for book in BOOKS:
+        if book.get('author').casefold() == book_author.casefold() and book.get('category').casefold() == category.casefold():
+            books_to_return.append(book)
+    return books_to_return
