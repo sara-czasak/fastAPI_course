@@ -48,4 +48,10 @@ async def read_books():
 async def create_book(book_request: BookRequest):
     """Create a new book"""
     new_book = Book(**book_request.model_dump())
-    BOOKS.append(new_book)
+    BOOKS.append(find_book_id(new_book))
+
+
+def find_book_id(book: Book):
+    """Set book id to next id"""
+    book.id = 1 if len(BOOKS) == 0 else BOOKS[-1].id + 1
+    return book
